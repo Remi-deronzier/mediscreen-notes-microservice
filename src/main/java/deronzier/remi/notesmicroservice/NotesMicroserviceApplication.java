@@ -5,6 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * The main class of the application.
+ * 
+ * @author Remi Deronzier
+ */
 @SpringBootApplication
 @EnableSwagger2
 public class NotesMicroserviceApplication {
