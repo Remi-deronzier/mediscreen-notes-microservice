@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import deronzier.remi.notesmicroservice.exceptions.NoteNotFoundException;
+import deronzier.remi.notesmicroservice.models.CreateClass;
 import deronzier.remi.notesmicroservice.models.Note;
+import deronzier.remi.notesmicroservice.models.UpdateClass;
 import deronzier.remi.notesmicroservice.services.NoteService;
 
 /**
@@ -68,7 +71,7 @@ public class NoteController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Note insert(@RequestBody Note note) {
+    public Note insert(@Validated(CreateClass.class) @RequestBody Note note) {
         return service.insert(note);
     }
 
@@ -89,7 +92,8 @@ public class NoteController {
      * @throws NoteNotFoundException
      */
     @PatchMapping("/{id}")
-    public Note update(@PathVariable String id, @RequestBody Note note) throws NoteNotFoundException {
+    public Note update(@PathVariable String id, @Validated(UpdateClass.class) @RequestBody Note note)
+            throws NoteNotFoundException {
         return service.update(id, note);
     }
 }
