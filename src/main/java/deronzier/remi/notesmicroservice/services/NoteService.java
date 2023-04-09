@@ -1,5 +1,7 @@
 package deronzier.remi.notesmicroservice.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,4 +25,6 @@ public interface NoteService {
     public String delete(String id) throws NoteNotFoundException;
 
     public Note update(String id, Note note) throws NoteNotFoundException;
+
+    public long countByPatientIdWithContentContainingTriggeringTerms(long patientId, List<String> keywords);
 }

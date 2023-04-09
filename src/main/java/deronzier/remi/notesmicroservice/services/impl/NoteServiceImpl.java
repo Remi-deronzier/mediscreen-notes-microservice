@@ -1,6 +1,7 @@
 package deronzier.remi.notesmicroservice.services.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,6 +104,12 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Page<Note> findByPatientId(long patientId, Pageable pageable) {
         return repository.findByPatientId(patientId, pageable);
+    }
+
+    @Override
+    public long countByPatientIdWithContentContainingTriggeringTerms(long patientId, List<String> keywords) {
+        String regex = String.join("|", keywords);
+        return repository.countByPatientIdAndContentRegex(patientId, regex);
     }
 
 }

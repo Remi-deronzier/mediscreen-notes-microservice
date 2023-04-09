@@ -15,4 +15,6 @@ public interface NoteRepository extends MongoRepository<Note, String> {
 
     Page<Note> findByPatientId(long patientId, Pageable pageable);
 
+    long countByPatientIdAndContentRegex(long patientId, String regex);
+
 }

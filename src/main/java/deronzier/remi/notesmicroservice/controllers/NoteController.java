@@ -1,5 +1,7 @@
 package deronzier.remi.notesmicroservice.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -95,5 +98,10 @@ public class NoteController {
     public Note update(@PathVariable String id, @Validated(UpdateClass.class) @RequestBody Note note)
             throws NoteNotFoundException {
         return service.update(id, note);
+    }
+
+    @GetMapping("/count-notes-with-triggering-terms/patient/{patientId}")
+    public long countByPatientIdAndContentIn(@PathVariable long patientId, @RequestParam List<String> keywords) {
+        return service.countByPatientIdWithContentContainingTriggeringTerms(patientId, keywords);
     }
 }
